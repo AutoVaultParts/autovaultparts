@@ -6,28 +6,28 @@ const categories = [
     description: 'Bumpers, hoods, fenders, doors and more',
     range: '$100 - $5,000+',
     path: '/shop?category=body',
-    image: '/src/assets/images/category-body.jpg',
+    image: '/category-body.jpg',
   },
   {
     title: 'Engines',
     description: 'Complete engines and major assemblies',
     range: '$800 - $15,000+',
     path: '/shop?category=engine',
-    image: '/src/assets/images/category-engine.jpg',
+    image: '/category-engine.jpg',
   },
   {
     title: 'Internal Parts',
     description: 'Turbochargers, AC compressors, alternators',
     range: '$150 - $2,000',
     path: '/shop?category=internal',
-    image: '/src/assets/images/category-internal.jpg',
+    image: '/category-internal.jpg',
   },
   {
     title: 'Transmission',
     description: 'Automatic and manual transmissions',
     range: '$800 - $3,500',
     path: '/shop?category=transmission',
-    image: '/src/assets/images/category-transmission.jpg',
+    image: '/category-transmission.jpg',
   },
 ]
 

@@ -1,6 +1,24 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useReducer, useEffect } from 'react'
 
 const CartContext = createContext({})
+
+// ─── localStorage key ────────────────────────────────────────────────────────
+const CART_STORAGE_KEY = 'avp_cart'
+
+// ─── Load cart from localStorage (used as the reducer's initial state) ───────
+// Wrapped in try/catch so corrupted or missing storage never breaks the app —
+// it just falls back to an empty cart.
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY)
+    if (!raw) return { items: [] }
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed.items)) return { items: [] }
+    return { items: parsed.items }
+  } catch {
+    return { items: [] }
+  }
+}
 
 function cartReducer(state, action) {
   switch (action.type) {
@@ -43,7 +61,20 @@ function cartReducer(state, action) {
 }
 
 export function CartProvider({ children }) {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] })
+  // Lazy initializer — runs once on mount, restores cart from localStorage
+  const [state, dispatch] = useReducer(cartReducer, undefined, loadCartFromStorage)
+
+  // ─── Persist cart to localStorage on every change ───────────────────────
+  // This is the fix: without this, items vanish on refresh because the cart
+  // only ever lived in React state (memory).
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify({ items: state.items }))
+    } catch {
+      // localStorage unavailable (e.g. private browsing quota) — cart still
+      // works for the current session, it just won't persist across reloads.
+    }
+  }, [state.items])
 
   const addItem = (product) => dispatch({ type: 'ADD_ITEM', payload: product })
   const removeItem = (id) => dispatch({ type: 'REMOVE_ITEM', payload: id })

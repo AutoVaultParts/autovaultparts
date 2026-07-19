@@ -51,7 +51,7 @@ export default function HeroBanner() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl text-white leading-tight mb-6" style={{ fontFamily: "'Anton', sans-serif", letterSpacing: '0.02em' }}>
             Quality Parts.
             <br />
             <span className="text-[#E8590A]">Global</span> Delivery.
@@ -85,46 +85,46 @@ export default function HeroBanner() {
             <SearchBar />
           </div>
 
-          {/* Trust badges */}
+          {/* Trust badges - replaced badge-*.png images with inline SVGs */}
           <div className="flex flex-wrap items-center gap-8">
 
             {/* Secure Payments */}
             <div className="flex flex-col items-center gap-2 group">
-              <img
-                src="/src/assets/images/badge-payments.png"
-                alt="Secure Payments"
-                className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-110"
-              />
+              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
               <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Secure Payments</span>
             </div>
 
             {/* Global Shipping */}
             <div className="flex flex-col items-center gap-2 group">
-              <img
-                src="/src/assets/images/badge-shipping.png"
-                alt="Global Shipping"
-                className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-110"
-              />
+              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
               <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Global Shipping</span>
             </div>
 
             {/* Quality Guaranteed */}
             <div className="flex flex-col items-center gap-2 group">
-              <img
-                src="/src/assets/images/badge-quality.png"
-                alt="Quality Guaranteed"
-                className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-110"
-              />
+              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+              </div>
               <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Quality Guaranteed</span>
             </div>
 
             {/* Easy Returns */}
             <div className="flex flex-col items-center gap-2 group">
-              <img
-                src="/src/assets/images/badge-returns.png"
-                alt="Easy Returns"
-                className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-110"
-              />
+              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                </svg>
+              </div>
               <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Easy Returns</span>
             </div>
 
@@ -133,7 +133,7 @@ export default function HeroBanner() {
       </div>
 
       {/* Decorative right side - Real steel gears */}
-      <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block overflow-hidden">
+      <div className="absolute right-0 top-0 bottom-0 w-1/3 block overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-l from-[#0A1628]/80 to-transparent" />
 
         {/* Large gear - top right - clockwise */}
@@ -148,7 +148,7 @@ export default function HeroBanner() {
           }}
         >
           <img
-            src="/src/assets/images/gear.png"
+            src="/gear.png"
             alt=""
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
@@ -166,7 +166,7 @@ export default function HeroBanner() {
           }}
         >
           <img
-            src="/src/assets/images/gear.png"
+            src="/gear.png"
             alt=""
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
@@ -184,7 +184,7 @@ export default function HeroBanner() {
           }}
         >
           <img
-            src="/src/assets/images/gear.png"
+            src="/gear.png"
             alt=""
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />

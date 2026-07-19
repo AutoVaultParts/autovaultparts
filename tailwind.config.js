@@ -18,6 +18,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'Arial', 'sans-serif'],
+        heading: ['Rajdhani', 'Arial', 'sans-serif'],
       },
     },
   },

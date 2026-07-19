@@ -1,13 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
+import { useWishlist } from '../../context/WishlistContext'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [bannerVisible, setBannerVisible] = useState(false)
   const { itemCount } = useCart()
   const { user, signOut } = useAuth()
+  const { wishlistCount } = useWishlist()
   const location = useLocation()
+
+  useEffect(() => {
+    setBannerVisible(false)
+    const timer = setTimeout(() => {
+      setBannerVisible(true)
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [location.pathname])
 
   const navLinks = [
     { label: 'Home', path: '/' },
@@ -20,8 +31,31 @@ export default function Navbar() {
 
   return (
     <nav className="bg-[#0A1628] text-white sticky top-0 z-50 shadow-lg">
-      {/* Free shipping banner */}
-      <div className="bg-[#E8590A] text-white text-center text-xs py-2 font-medium tracking-wide">
+
+      {/* Animated free shipping banner */}
+      <style>{`
+        @keyframes bannerShift {
+          0%   { background-color: #E8590A; }
+          20%  { background-color: #d94f0a; }
+          40%  { background-color: #c0440d; }
+          60%  { background-color: #e06020; }
+          80%  { background-color: #f07030; }
+          100% { background-color: #E8590A; }
+        }
+        .banner-animated {
+          animation: bannerShift 6s ease-in-out infinite;
+        }
+      `}</style>
+
+      <div
+        className={`banner-animated text-white text-center text-xs py-2 font-medium tracking-wide overflow-hidden transition-all duration-700 ease-out ${
+          bannerVisible ? 'max-h-12 opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-full'
+        }`}
+        style={{
+          transform: bannerVisible ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, max-height 0.5s ease',
+        }}
+      >
         Free shipping on orders over $1,000 in the US &nbsp;|&nbsp; $1,300 in Canada &nbsp;|&nbsp; $1,500 in Europe &nbsp;|&nbsp; $1,800 in Australia
       </div>
 
@@ -31,7 +65,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center h-full py-1">
             <img
-              src="/src/assets/images/logo.png"
+              src="/logo.png"
               alt="AutoVaultParts"
               className="h-full w-auto object-contain max-h-20"
             />
@@ -54,6 +88,20 @@ export default function Navbar() {
 
           {/* Right side icons */}
           <div className="flex items-center gap-4">
+
+            {/* Wishlist icon - only for logged in users */}
+            {user && (
+              <Link to="/account/wishlist" className="relative p-2 hover:text-[#E8590A] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#E8590A] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+            )}
 
             {/* Cart icon */}
             <Link to="/cart" className="relative p-2 hover:text-[#E8590A] transition-colors">
