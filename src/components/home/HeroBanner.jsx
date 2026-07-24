@@ -85,48 +85,24 @@ export default function HeroBanner() {
             <SearchBar />
           </div>
 
-          {/* Trust badges - replaced badge-*.png images with inline SVGs */}
+          {/* Trust badges */}
           <div className="flex flex-wrap items-center gap-8">
 
-            {/* Secure Payments */}
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+            {[
+              { src: '/secure_payment.png', label: 'Secure Payments' },
+              { src: '/global_shipping.png', label: 'Global Shipping' },
+              { src: '/quality_guaranteed.png', label: 'Quality Guaranteed' },
+              { src: '/easy_return.png', label: 'Easy Returns' },
+            ].map(badge => (
+              <div key={badge.label} className="flex flex-col items-center gap-2 group">
+                <img
+                  src={badge.src}
+                  alt={badge.label}
+                  className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-110"
+                />
+                <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">{badge.label}</span>
               </div>
-              <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Secure Payments</span>
-            </div>
-
-            {/* Global Shipping */}
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Global Shipping</span>
-            </div>
-
-            {/* Quality Guaranteed */}
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-              </div>
-              <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Quality Guaranteed</span>
-            </div>
-
-            {/* Easy Returns */}
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="w-20 h-20 rounded-full bg-[#E8590A]/10 border border-[#E8590A]/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                </svg>
-              </div>
-              <span className="text-gray-400 text-xs font-medium tracking-wide uppercase">Easy Returns</span>
-            </div>
+            ))}
 
           </div>
         </div>

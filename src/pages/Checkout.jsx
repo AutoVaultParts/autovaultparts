@@ -7,50 +7,77 @@ import SEO from '../components/common/SEO'
 
 // ─── COUNTRY LIST ─────────────────────────────────────────────────────────────
 const COUNTRIES = [
+  // North America
   { code: 'US', name: 'United States' },
   { code: 'CA', name: 'Canada' },
+  { code: 'MX', name: 'Mexico' },
+
+  // South America
+  { code: 'AR', name: 'Argentina' },
+  { code: 'BO', name: 'Bolivia' },
+  { code: 'BR', name: 'Brazil' },
+  { code: 'CL', name: 'Chile' },
+  { code: 'CO', name: 'Colombia' },
+  { code: 'EC', name: 'Ecuador' },
+  { code: 'GF', name: 'French Guiana' },
+  { code: 'GY', name: 'Guyana' },
+  { code: 'PY', name: 'Paraguay' },
+  { code: 'PE', name: 'Peru' },
+  { code: 'SR', name: 'Suriname' },
+  { code: 'UY', name: 'Uruguay' },
+  { code: 'VE', name: 'Venezuela' },
+
+  // Europe — Western
+  { code: 'AT', name: 'Austria' },
+  { code: 'BE', name: 'Belgium' },
+  { code: 'CH', name: 'Switzerland' },
+  { code: 'CY', name: 'Cyprus' },
+  { code: 'DE', name: 'Germany' },
+  { code: 'DK', name: 'Denmark' },
+  { code: 'ES', name: 'Spain' },
+  { code: 'FI', name: 'Finland' },
+  { code: 'FR', name: 'France' },
+  { code: 'GB', name: 'United Kingdom' },
+  { code: 'GR', name: 'Greece' },
+  { code: 'IE', name: 'Ireland' },
+  { code: 'IS', name: 'Iceland' },
+  { code: 'IT', name: 'Italy' },
+  { code: 'LI', name: 'Liechtenstein' },
+  { code: 'LU', name: 'Luxembourg' },
+  { code: 'MT', name: 'Malta' },
+  { code: 'NL', name: 'Netherlands' },
+  { code: 'NO', name: 'Norway' },
+  { code: 'PT', name: 'Portugal' },
+  { code: 'SE', name: 'Sweden' },
+
+  // Europe — Eastern
+  { code: 'AL', name: 'Albania' },
+  { code: 'AM', name: 'Armenia' },
+  { code: 'AZ', name: 'Azerbaijan' },
+  { code: 'BA', name: 'Bosnia and Herzegovina' },
+  { code: 'BG', name: 'Bulgaria' },
+  { code: 'BY', name: 'Belarus' },
+  { code: 'CZ', name: 'Czech Republic' },
+  { code: 'EE', name: 'Estonia' },
+  { code: 'GE', name: 'Georgia' },
+  { code: 'HR', name: 'Croatia' },
+  { code: 'HU', name: 'Hungary' },
+  { code: 'LT', name: 'Lithuania' },
+  { code: 'LV', name: 'Latvia' },
+  { code: 'MD', name: 'Moldova' },
+  { code: 'ME', name: 'Montenegro' },
+  { code: 'MK', name: 'North Macedonia' },
+  { code: 'PL', name: 'Poland' },
+  { code: 'RO', name: 'Romania' },
+  { code: 'RS', name: 'Serbia' },
+  { code: 'SI', name: 'Slovenia' },
+  { code: 'SK', name: 'Slovakia' },
+  { code: 'UA', name: 'Ukraine' },
+  { code: 'XK', name: 'Kosovo' },
+
+  // Oceania
   { code: 'AU', name: 'Australia' },
   { code: 'NZ', name: 'New Zealand' },
-  { code: 'GB', name: 'United Kingdom' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'FR', name: 'France' },
-  { code: 'IT', name: 'Italy' },
-  { code: 'ES', name: 'Spain' },
-  { code: 'PT', name: 'Portugal' },
-  { code: 'NL', name: 'Netherlands' },
-  { code: 'BE', name: 'Belgium' },
-  { code: 'SE', name: 'Sweden' },
-  { code: 'NO', name: 'Norway' },
-  { code: 'DK', name: 'Denmark' },
-  { code: 'FI', name: 'Finland' },
-  { code: 'IE', name: 'Ireland' },
-  { code: 'AT', name: 'Austria' },
-  { code: 'CH', name: 'Switzerland' },
-  { code: 'LU', name: 'Luxembourg' },
-  { code: 'PL', name: 'Poland' },
-  { code: 'CZ', name: 'Czech Republic' },
-  { code: 'SK', name: 'Slovakia' },
-  { code: 'HU', name: 'Hungary' },
-  { code: 'RO', name: 'Romania' },
-  { code: 'BG', name: 'Bulgaria' },
-  { code: 'HR', name: 'Croatia' },
-  { code: 'SI', name: 'Slovenia' },
-  { code: 'EE', name: 'Estonia' },
-  { code: 'LV', name: 'Latvia' },
-  { code: 'LT', name: 'Lithuania' },
-  { code: 'GR', name: 'Greece' },
-  { code: 'MT', name: 'Malta' },
-  { code: 'CY', name: 'Cyprus' },
-  { code: 'JP', name: 'Japan' },
-  { code: 'KR', name: 'South Korea' },
-  { code: 'SG', name: 'Singapore' },
-  { code: 'AE', name: 'United Arab Emirates' },
-  { code: 'SA', name: 'Saudi Arabia' },
-  { code: 'ZA', name: 'South Africa' },
-  { code: 'MX', name: 'Mexico' },
-  { code: 'BR', name: 'Brazil' },
-  { code: 'AR', name: 'Argentina' },
-  { code: 'IN', name: 'India' },
 ]
 
 // ─── US STATES ────────────────────────────────────────────────────────────────
@@ -68,17 +95,13 @@ const US_STATES = [
 ]
 
 // ─── PAYMENT METHODS ──────────────────────────────────────────────────────────
-// global: true  → shown to all countries
-// regions: [...] → only shown when customer's selected country is in the list
 const PAYMENT_METHODS = [
   { id: 'card',       label: 'Credit or Debit Card', logo: null,                global: true },
   { id: 'apple_pay',  label: 'Apple Pay',             logo: '/pay-applepay.png', global: true },
   { id: 'google_pay', label: 'Google Pay',            logo: '/pay-googlepay.png',global: true },
   { id: 'paypal',     label: 'PayPal',                logo: '/pay-paypal.png',   global: true },
-  // US-only methods
   { id: 'cashapp',    label: 'Cash App Pay',          logo: '/pay-cashapp.png',  global: false, regions: ['US'] },
   { id: 'zelle',      label: 'Zelle',                 logo: '/pay-zelle.png',    global: false, regions: ['US'] },
-  // Chime — US, CA, GB, BR, MX and other supported regions
   {
     id: 'chime',
     label: 'Chime',
@@ -86,13 +109,10 @@ const PAYMENT_METHODS = [
     global: false,
     regions: ['US', 'CA', 'GB', 'BR', 'MX', 'AU', 'DE', 'FR', 'ES', 'IT', 'NL', 'SE', 'NO', 'DK', 'FI', 'IE', 'AT', 'CH', 'PL', 'SG', 'AE'],
   },
-  // Bitcoin — global, with 10% discount
   { id: 'bitcoin',    label: 'Bitcoin (BTC)',          logo: null,               global: true },
 ]
 
 // ─── PAYMENT METHOD LOGO HELPER ───────────────────────────────────────────────
-// Renders the correct logo(s) for a given payment method id.
-// Card shows Visa + Mastercard side by side since it's a generic card payment.
 function PaymentMethodLogo({ method }) {
   switch (method) {
     case 'bitcoin':
@@ -129,9 +149,6 @@ export default function Checkout() {
   const { items, subtotal, itemCount, clearCart } = useCart()
   const navigate = useNavigate()
 
-  // ─── Restore saved checkout state (if any) ───────────────────────────────
-  // Lets the customer reload the page and resume on the same step with the
-  // same address and payment method, instead of starting over.
   const savedState = (() => {
     try {
       const raw = sessionStorage.getItem('avp_checkout_state')
@@ -145,7 +162,6 @@ export default function Checkout() {
   const [loading, setLoading] = useState(false)
   const [orderError, setOrderError] = useState('')
 
-  // ─── Shipping address state ───────────────────────────────────────────────
   const [address, setAddress] = useState(savedState?.address || {
     firstName: '',
     lastName: '',
@@ -159,25 +175,20 @@ export default function Checkout() {
     country: 'US',
   })
 
-  // ─── Selected payment method ──────────────────────────────────────────────
   const [paymentMethod, setPaymentMethod] = useState(savedState?.paymentMethod || 'card')
 
-  // ─── Save checkout state on every change so a reload can resume ──────────
   useEffect(() => {
     try {
       sessionStorage.setItem('avp_checkout_state', JSON.stringify({ step, address, paymentMethod }))
     } catch {
-      // sessionStorage unavailable — fail silently, checkout still works
+      // sessionStorage unavailable — fail silently
     }
   }, [step, address, paymentMethod])
 
-  // ─── Scroll to top whenever the step changes ──────────────────────────────
-  // Prevents the page from staying scrolled near the footer after advancing.
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [step])
 
-  // ─── Derived values ───────────────────────────────────────────────────────
   const hasFreight = items.some(i => i.isFreight)
   const nonFreightSubtotal = items.filter(i => !i.isFreight).reduce((sum, i) => sum + i.price * i.quantity, 0)
   const nonFreightItems = items.filter(i => !i.isFreight)
@@ -189,24 +200,20 @@ export default function Checkout() {
   const btcDiscount = isBTC ? Math.round(subtotal * 0.10 * 100) / 100 : 0
   const btcTotal = isBTC ? subtotal - btcDiscount : subtotal
 
-  // Only show payment methods available for the customer's country
   const availablePaymentMethods = PAYMENT_METHODS.filter(
     m => m.global || (m.regions && m.regions.includes(address.country))
   )
 
-  // ─── Address change handler ───────────────────────────────────────────────
   const handleAddressChange = (key, value) => {
     setAddress(prev => ({ ...prev, [key]: value }))
   }
 
-  // Validate all required address fields before advancing
   const isAddressValid =
     address.firstName && address.lastName && address.email &&
     address.address1 && address.city && address.country &&
     (address.country !== 'US' || address.state) &&
     (address.country !== 'US' || address.zip)
 
-  // ─── Submit order to Supabase ─────────────────────────────────────────────
   const handlePlaceOrder = async () => {
     setLoading(true)
     setOrderError('')
@@ -235,7 +242,6 @@ export default function Checkout() {
 
       if (orderErr) throw orderErr
 
-      // Insert all order line items
       const orderItems = items.map(item => ({
         order_id: order.id,
         product_id: item.id,
@@ -251,7 +257,6 @@ export default function Checkout() {
 
       if (itemsError) throw itemsError
 
-      // Insert first tracking event
       await supabase
         .from('order_tracking_events')
         .insert({
@@ -274,7 +279,6 @@ export default function Checkout() {
     }
   }
 
-  // ─── Empty cart fallback ──────────────────────────────────────────────────
   if (itemCount === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
@@ -297,7 +301,7 @@ export default function Checkout() {
 
       <SEO title="Checkout" url="/checkout" noIndex={true} />
 
-      {/* ─── Top header with step breadcrumb ─────────────────────────────── */}
+      {/* Top header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center">
@@ -319,7 +323,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      {/* ─── BTC promotion banner ─────────────────────────────────────────── */}
+      {/* BTC promotion banner */}
       <div className="bg-gradient-to-r from-[#0A1628] via-[#1a2d4a] to-[#0A1628] border-b border-[#E8590A]/30">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -328,9 +332,7 @@ export default function Checkout() {
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-white font-black text-sm">Pay with Bitcoin and Save 10%</span>
-                  <span className="bg-[#E8590A] text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
-                    LIMITED OFFER
-                  </span>
+                  <span className="bg-[#E8590A] text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">LIMITED OFFER</span>
                 </div>
                 <p className="text-gray-400 text-xs mt-0.5">
                   Get <span className="text-[#E8590A] font-bold">{formatPrice(subtotal * 0.10)}</span> off your order of <span className="text-white font-medium">{formatPrice(subtotal)}</span>. Pay <span className="text-green-400 font-bold">{formatPrice(subtotal * 0.90)}</span> instead. Shipping calculated separately.
@@ -351,10 +353,10 @@ export default function Checkout() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
 
-          {/* ─── Left side — form steps ────────────────────────────────────── */}
+          {/* Left side — form steps */}
           <div className="flex-1 min-w-0">
 
-            {/* ── STEP 1: Shipping Address ──────────────────────────────────── */}
+            {/* STEP 1: Shipping Address */}
             {step === 1 && (
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <div className="px-6 py-5 border-b border-gray-100">
@@ -363,7 +365,6 @@ export default function Checkout() {
                 </div>
                 <div className="p-6 space-y-4">
 
-                  {/* Name */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-medium text-gray-600 mb-1.5 uppercase tracking-wide">First Name *</label>
@@ -375,7 +376,6 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Contact */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-medium text-gray-600 mb-1.5 uppercase tracking-wide">Email Address *</label>
@@ -387,7 +387,6 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Country */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1.5 uppercase tracking-wide">Country *</label>
                     <select value={address.country} onChange={e => handleAddressChange('country', e.target.value)} className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-[#E8590A] focus:ring-1 focus:ring-[#E8590A] transition-colors bg-white">
@@ -395,7 +394,6 @@ export default function Checkout() {
                     </select>
                   </div>
 
-                  {/* Address lines */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1.5 uppercase tracking-wide">Street Address *</label>
                     <input type="text" value={address.address1} onChange={e => handleAddressChange('address1', e.target.value)} className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-[#E8590A] focus:ring-1 focus:ring-[#E8590A] transition-colors" placeholder="123 Main Street" />
@@ -405,7 +403,6 @@ export default function Checkout() {
                     <input type="text" value={address.address2} onChange={e => handleAddressChange('address2', e.target.value)} className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-[#E8590A] focus:ring-1 focus:ring-[#E8590A] transition-colors" placeholder="Apt 4B" />
                   </div>
 
-                  {/* City / State / ZIP */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="sm:col-span-1">
                       <label className="block text-xs font-medium text-gray-600 mb-1.5 uppercase tracking-wide">City *</label>
@@ -428,7 +425,6 @@ export default function Checkout() {
                     )}
                   </div>
 
-                  {/* Continue to payment */}
                   <div className="pt-2">
                     <button
                       onClick={() => isAddressValid && setStep(2)}
@@ -442,11 +438,10 @@ export default function Checkout() {
               </div>
             )}
 
-            {/* ── STEP 2: Payment Method ────────────────────────────────────── */}
+            {/* STEP 2: Payment Method */}
             {step === 2 && (
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
 
-                {/* Shipping summary bar */}
                 <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wide font-medium mb-0.5">Delivering to</p>
@@ -462,7 +457,6 @@ export default function Checkout() {
 
                 <div className="p-6 space-y-4">
 
-                  {/* ── Payment method radio buttons ──────────────────────── */}
                   <div className="space-y-2">
                     {availablePaymentMethods.map(method => (
                       <label
@@ -477,7 +471,6 @@ export default function Checkout() {
                           onChange={() => setPaymentMethod(method.id)}
                           className="accent-[#E8590A]"
                         />
-                        {/* Logo or generic card icon */}
                         {method.id === 'bitcoin' ? (
                           <img src="/btc-logo.png" alt="Bitcoin" className="h-6 w-6 object-contain flex-shrink-0" />
                         ) : method.logo ? (
@@ -493,7 +486,6 @@ export default function Checkout() {
                             <p className="text-xs text-[#E8590A] font-medium mt-0.5">10% discount applied — you save {formatPrice(btcDiscount)}</p>
                           )}
                         </div>
-                        {/* Right-side badges */}
                         {method.id === 'zelle' && (
                           <span className="ml-auto text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">Manual confirmation</span>
                         )}
@@ -504,11 +496,6 @@ export default function Checkout() {
                     ))}
                   </div>
 
-                  {/* ── Info box per selected payment method ─────────────────
-                      No input fields — team contacts the customer after order.
-                  ─────────────────────────────────────────────────────────── */}
-
-                  {/* Card */}
                   {paymentMethod === 'card' && (
                     <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-blue-800 font-bold text-sm mb-1">How Card Payment works at AutoVaultParts</p>
@@ -516,7 +503,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Apple Pay */}
                   {paymentMethod === 'apple_pay' && (
                     <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
                       <p className="text-gray-800 font-bold text-sm mb-1">How Apple Pay works at AutoVaultParts</p>
@@ -524,7 +510,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Google Pay */}
                   {paymentMethod === 'google_pay' && (
                     <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
                       <p className="text-gray-800 font-bold text-sm mb-1">How Google Pay works at AutoVaultParts</p>
@@ -532,7 +517,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* PayPal */}
                   {paymentMethod === 'paypal' && (
                     <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-blue-800 font-bold text-sm mb-1">How PayPal works at AutoVaultParts</p>
@@ -540,7 +524,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Cash App */}
                   {paymentMethod === 'cashapp' && (
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-green-800 font-bold text-sm mb-1">How Cash App works at AutoVaultParts</p>
@@ -548,7 +531,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Zelle */}
                   {paymentMethod === 'zelle' && (
                     <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
                       <p className="text-purple-800 font-bold text-sm mb-1">How Zelle works at AutoVaultParts</p>
@@ -556,7 +538,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Chime */}
                   {paymentMethod === 'chime' && (
                     <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
@@ -567,7 +548,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Bitcoin — full step-by-step instructions */}
                   {paymentMethod === 'bitcoin' && (
                     <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
@@ -591,7 +571,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* High value order warning */}
                   {isHighValue && paymentMethod !== 'bitcoin' && (
                     <div className="p-4 bg-[#E8590A]/5 border border-[#E8590A]/20 rounded-lg">
                       <p className="text-[#E8590A] font-bold text-sm mb-1">High Value Order</p>
@@ -599,7 +578,6 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Advance to review step */}
                   <button
                     onClick={() => setStep(3)}
                     className="w-full bg-[#E8590A] hover:bg-[#ff6b1a] text-white font-black py-4 rounded-lg text-base transition-colors"
@@ -610,11 +588,10 @@ export default function Checkout() {
               </div>
             )}
 
-            {/* ── STEP 3: Review & Place Order ─────────────────────────────── */}
+            {/* STEP 3: Review & Place Order */}
             {step === 3 && (
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
 
-                {/* Address summary */}
                 <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wide font-medium mb-0.5">Delivering to</p>
@@ -623,7 +600,6 @@ export default function Checkout() {
                   <button onClick={() => setStep(1)} className="text-[#E8590A] text-xs font-medium hover:underline">Edit</button>
                 </div>
 
-                {/* Payment summary — logo + clean method name, no card number */}
                 <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wide font-medium mb-0.5">Payment</p>
@@ -650,7 +626,6 @@ export default function Checkout() {
                 </div>
 
                 <div className="p-6">
-                  {/* Items list */}
                   <div className="space-y-3 mb-6">
                     {items.map(item => (
                       <div key={item.id} className="flex items-center gap-4">
@@ -666,7 +641,6 @@ export default function Checkout() {
                     ))}
                   </div>
 
-                  {/* BTC discount breakdown */}
                   {isBTC && (
                     <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-4">
                       <div className="flex items-center gap-2 mb-3">
@@ -691,19 +665,16 @@ export default function Checkout() {
                     </div>
                   )}
 
-                  {/* Terms */}
                   <div className="bg-gray-50 rounded-lg p-4 mb-6 text-xs text-gray-500 leading-relaxed">
                     By placing your order, you agree to AutoVaultParts terms of service. All parts are subject to our quality guarantee and return policy.
                   </div>
 
-                  {/* Error */}
                   {orderError && (
                     <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
                       <p className="text-red-600 text-sm">{orderError}</p>
                     </div>
                   )}
 
-                  {/* Place order */}
                   <button
                     onClick={handlePlaceOrder}
                     disabled={loading}
@@ -722,7 +693,6 @@ export default function Checkout() {
                     )}
                   </button>
 
-                  {/* SSL trust badge */}
                   <div className="flex items-center justify-center gap-2 mt-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -734,7 +704,7 @@ export default function Checkout() {
             )}
           </div>
 
-          {/* ─── Right side — order summary sidebar ───────────────────────── */}
+          {/* Right side — order summary sidebar */}
           <div className="w-full lg:w-96 flex-shrink-0">
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden sticky top-24">
               <div className="bg-[#0A1628] px-5 py-4">
@@ -742,7 +712,6 @@ export default function Checkout() {
               </div>
               <div className="p-5">
 
-                {/* Items */}
                 <div className="space-y-3 mb-4">
                   {items.map(item => (
                     <div key={item.id} className="flex items-center gap-3">
@@ -763,7 +732,6 @@ export default function Checkout() {
                   ))}
                 </div>
 
-                {/* Price breakdown */}
                 <div className="border-t border-gray-100 pt-4 space-y-3 mb-4">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-500 text-sm">Subtotal</span>
@@ -797,7 +765,6 @@ export default function Checkout() {
                   </div>
                 </div>
 
-                {/* Grand total */}
                 <div className="border-t border-gray-100 pt-4">
                   <div className="flex items-center justify-between">
                     <span className="text-[#0A1628] font-black text-base">Total</span>

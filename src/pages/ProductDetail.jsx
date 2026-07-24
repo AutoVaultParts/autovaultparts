@@ -591,29 +591,22 @@ export default function ProductDetail() {
               </div>
             )}
 
+            {/* Trust badges — replaced inline SVGs with PNGs */}
             <div className="grid grid-cols-2 gap-3">
               <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#E8590A] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+                <img src="/secure_payment.png" alt="Secure Payment" className="h-5 w-5 object-contain flex-shrink-0" />
                 <span className="text-xs text-gray-600 font-medium">Secure Payment</span>
               </div>
               <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#E8590A] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <img src="/quality_guaranteed.png" alt="Quality Checked" className="h-5 w-5 object-contain flex-shrink-0" />
                 <span className="text-xs text-gray-600 font-medium">Quality Checked</span>
               </div>
               <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#E8590A] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
+                <img src="/carefully_packaged.png" alt="Carefully Packaged" className="h-5 w-5 object-contain flex-shrink-0" />
                 <span className="text-xs text-gray-600 font-medium">Carefully Packaged</span>
               </div>
               <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#E8590A] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                </svg>
+                <img src="/easy_return.png" alt="Easy Returns" className="h-5 w-5 object-contain flex-shrink-0" />
                 <span className="text-xs text-gray-600 font-medium">Easy Returns</span>
               </div>
             </div>

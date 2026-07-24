@@ -1,5 +1,78 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
 import SEO from '../components/common/SEO'
+
+function useCountUp(target, suffix, inView) {
+  const [count, setCount] = useState(0)
+  const hasRun = useRef(false)
+
+  useEffect(() => {
+    if (!inView || hasRun.current) return
+    hasRun.current = true
+
+    // 2 second delay before starting
+    const delay = setTimeout(() => {
+      // Duration scales with target so all counters feel uniform speed
+      // ~18ms per number ensures every number is visible
+      const duration = target * 18
+      let startTime = null
+
+      function easeOut(t) {
+        // Gentle ease — slows down near the end but not aggressively
+        return 1 - Math.pow(1 - t, 2)
+      }
+
+      function animate(timestamp) {
+        if (!startTime) startTime = timestamp
+        const elapsed = timestamp - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        const eased = easeOut(progress)
+        const current = Math.floor(eased * target)
+        setCount(current)
+        if (progress < 1) requestAnimationFrame(animate)
+        else setCount(target)
+      }
+
+      requestAnimationFrame(animate)
+    }, 2000)
+
+    return () => clearTimeout(delay)
+  }, [inView, target])
+
+  return `${count}${suffix}`
+}
+
+function StatCard({ value, label }) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true) },
+      { threshold: 0.3 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
+  // Parse the value into number + suffix
+  // e.g. '376+' => target=376, suffix='+'
+  // '100%' => target=100, suffix='%'
+  // '4' => target=4, suffix=''
+  // '81+' => target=81, suffix='+'
+  const match = value.match(/^(\d+)(.*)$/)
+  const target = match ? parseInt(match[1]) : 0
+  const suffix = match ? match[2] : ''
+
+  const displayed = useCountUp(target, suffix, inView)
+
+  return (
+    <div ref={ref} className="text-center">
+      <p className="text-3xl font-black text-[#E8590A] mb-1">{displayed}</p>
+      <p className="text-gray-400 text-sm">{label}</p>
+    </div>
+  )
+}
 
 export default function About() {
   return (
@@ -42,14 +115,11 @@ export default function About() {
             <div className="grid grid-cols-2 gap-6">
               {[
                 { value: '376+', label: 'Car Models Supported' },
-                { value: '12+', label: 'Parts Listed' },
+                { value: '81+', label: 'Parts Listed' },
                 { value: '4', label: 'Shipping Regions' },
                 { value: '100%', label: 'Quality Checked' },
               ].map(stat => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-black text-[#E8590A] mb-1">{stat.value}</p>
-                  <p className="text-gray-400 text-sm">{stat.label}</p>
-                </div>
+                <StatCard key={stat.label} value={stat.value} label={stat.label} />
               ))}
             </div>
           </div>
@@ -61,63 +131,50 @@ export default function About() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
+                icon: '/quality_guaranteed.png',
+                alt: 'Quality Guaranteed',
                 title: 'Quality Guaranteed',
                 desc: 'Every part is inspected before shipping. New OEM, new aftermarket, remanufactured and used parts are all clearly labeled so you know exactly what condition you are buying.',
               },
               {
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h10l2-2z" />
-                  </svg>
-                ),
+                icon: '/exact_compatibility.png',
+                alt: 'Exact Compatibility',
                 title: 'Exact Compatibility',
                 desc: 'Use our Make, Model and Year filter to find parts that are confirmed to fit your specific vehicle. No guessing, no returns for wrong fitment.',
               },
               {
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
+                icon: '/global_shipping.png',
+                alt: 'Global Shipping',
                 title: 'Global Shipping',
                 desc: 'We ship to the United States, Canada, Europe and Australia with free shipping available on qualifying orders. Freight items like engines are handled with specialist carriers.',
               },
               {
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
-                ),
+                icon: '/real_time_tracking.png',
+                alt: 'Real Time Tracking',
                 title: 'Real Time Tracking',
                 desc: 'Track your order directly on our website. Our team updates every shipment manually so you always know exactly where your parts are.',
               },
               {
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                ),
+                icon: '/secure_payment.png',
+                alt: 'Secure Payments',
                 title: 'Secure Payments',
                 desc: 'We accept Visa, Mastercard, Apple Pay, Google Pay, Cash App and Zelle. All card payments are processed with 256-bit SSL encryption.',
               },
               {
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#E8590A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                ),
+                icon: '/responsive_support.png',
+                alt: 'Responsive Support',
                 title: 'Responsive Support',
                 desc: 'Can not find the part you need? Contact our team and we will source it for you. We respond to every message within 24 hours.',
               },
             ].map(item => (
               <div key={item.title} className="bg-white rounded-xl border border-gray-200 p-6 hover:border-[#E8590A] transition-colors">
-                <div className="mb-4">{item.icon}</div>
+                <div className="mb-4">
+                  <img
+                    src={item.icon}
+                    alt={item.alt}
+                    className="w-12 h-12 object-contain"
+                  />
+                </div>
                 <h3 className="text-[#0A1628] font-black text-base mb-2">{item.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
               </div>
@@ -130,22 +187,87 @@ export default function About() {
           <h2 className="text-2xl font-black text-[#0A1628] mb-8 text-center">Parts We Carry</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Body Parts', desc: 'Bumpers, hoods, doors and panels', path: '/shop?category=body' },
-              { label: 'Engines', desc: 'Complete engines and long blocks', path: '/shop?category=engine' },
-              { label: 'Internal Parts', desc: 'Turbos, steering and more', path: '/shop?category=internal' },
-              { label: 'Transmission', desc: 'Gearboxes and axle assemblies', path: '/shop?category=transmission' },
-              { label: 'Suspension', desc: 'Control arms and struts', path: '/shop?category=suspension' },
-              { label: 'Electrical', desc: 'Alternators and starters', path: '/shop?category=electrical' },
-              { label: 'Exhaust', desc: 'Full systems and mufflers', path: '/shop?category=exhaust' },
-              { label: 'Wheels and Rims', desc: 'Alloy wheels and steel rims', path: '/shop?category=wheels' },
-              { label: 'Tyres', desc: 'All season and performance tyres', path: '/shop?category=tyres' },
-              { label: 'More Coming', desc: 'New categories added regularly', path: '/shop' },
+              {
+                icon: '/body_parts.png',
+                label: 'Body Parts',
+                desc: 'Bumpers, hoods, doors and panels',
+                path: '/shop?category=body',
+              },
+              {
+                icon: '/engine.png',
+                label: 'Engines',
+                desc: 'Complete engines and long blocks',
+                path: '/shop?category=engine',
+              },
+              {
+                icon: '/internal_parts.png',
+                label: 'Internal Parts',
+                desc: 'Turbos, steering and more',
+                path: '/shop?category=internal',
+              },
+              {
+                icon: '/transmission.png',
+                label: 'Transmission',
+                desc: 'Gearboxes and axle assemblies',
+                path: '/shop?category=transmission',
+              },
+              {
+                icon: '/suspension.png',
+                label: 'Suspension',
+                desc: 'Control arms and struts',
+                path: '/shop?category=suspension',
+              },
+              {
+                icon: '/electrical_parts.png',
+                label: 'Electrical',
+                desc: 'Alternators and starters',
+                path: '/shop?category=electrical',
+              },
+              {
+                icon: '/exhaust.png',
+                label: 'Exhaust',
+                desc: 'Full systems and mufflers',
+                path: '/shop?category=exhaust',
+              },
+              {
+                icon: '/wheels_and_rims.png',
+                label: 'Wheels and Rims',
+                desc: 'Alloy wheels and steel rims',
+                path: '/shop?category=wheels',
+              },
+              {
+                icon: '/tyres.png',
+                label: 'Tyres',
+                desc: 'All season and performance tyres',
+                path: '/shop?category=tyres',
+              },
+              {
+                icon: null,
+                label: 'More Coming',
+                desc: 'New categories added regularly',
+                path: '/shop',
+              },
             ].map(item => (
               <Link
                 key={item.label}
                 to={item.path}
                 className="bg-white rounded-xl border border-gray-200 p-4 hover:border-[#E8590A] hover:shadow-md transition-all group text-center"
               >
+                <div className="flex items-center justify-center mb-3 h-12">
+                  {item.icon ? (
+                    <img
+                      src={item.icon}
+                      alt={item.label}
+                      className="w-10 h-10 object-contain"
+                    />
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-[#0A1628] group-hover:text-[#E8590A] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="9" />
+                      <line x1="12" y1="8" x2="12" y2="16" />
+                      <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg>
+                  )}
+                </div>
                 <h3 className="text-[#0A1628] font-bold text-sm mb-1 group-hover:text-[#E8590A] transition-colors">{item.label}</h3>
                 <p className="text-gray-400 text-xs">{item.desc}</p>
               </Link>
@@ -156,11 +278,12 @@ export default function About() {
         {/* Free shipping */}
         <div className="bg-[#0A1628] rounded-2xl p-8 mb-20">
           <h2 className="text-2xl font-black text-white mb-6 text-center">Free Shipping Thresholds</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
               { region: 'United States', threshold: '$1,000+', flag: '🇺🇸' },
               { region: 'Canada', threshold: '$1,300+', flag: '🇨🇦' },
               { region: 'Europe', threshold: '$1,500+', flag: '🇪🇺' },
+              { region: 'South America', threshold: '$1,500+', flag: '🌎' },
               { region: 'Australia', threshold: '$1,800+', flag: '🇦🇺' },
             ].map(item => (
               <div key={item.region} className="text-center bg-[#1a2d4a] rounded-xl p-4">

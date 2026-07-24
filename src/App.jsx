@@ -56,6 +56,15 @@ function PageTransition({ children }) {
 }
 
 function AppContent() {
+  // Disable right-click on all images sitewide
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault()
+    }
+    document.addEventListener('contextmenu', handleContextMenu)
+    return () => document.removeEventListener('contextmenu', handleContextMenu)
+  }, [])
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <ScrollToTop />

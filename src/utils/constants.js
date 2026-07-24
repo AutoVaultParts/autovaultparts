@@ -11,13 +11,28 @@ export const FREE_SHIPPING_THRESHOLDS = {
   CA: 1300,
   EU: 1500,
   AU: 1800,
+  SA: 1500,
 }
 
 export const SHIPPING_REGIONS = {
   US: ['US'],
   CA: ['CA'],
-  EU: ['GB', 'DE', 'FR', 'NL', 'BE', 'IT', 'ES', 'SE', 'NO', 'DK', 'AT', 'CH', 'PT', 'IE'],
   AU: ['AU', 'NZ'],
+
+  // All European countries
+  EU: [
+    'GB', 'DE', 'FR', 'NL', 'BE', 'IT', 'ES', 'SE', 'NO', 'DK',
+    'AT', 'CH', 'PT', 'IE', 'FI', 'LU', 'PL', 'CZ', 'SK', 'HU',
+    'RO', 'BG', 'HR', 'SI', 'EE', 'LV', 'LT', 'GR', 'MT', 'CY',
+    'IS', 'LI', 'AL', 'BA', 'ME', 'MK', 'RS', 'XK', 'MD', 'UA',
+    'BY', 'GE', 'AM', 'AZ',
+  ],
+
+  // All South American countries
+  SA: [
+    'BR', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'BO', 'PY', 'UY',
+    'GY', 'SR', 'GF',
+  ],
 }
 
 export const ORDER_STATUSES = [
