@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { supabase } from '../../lib/supabase'
+import { compressImages } from '../../utils/imageCompression'
 
 // ─── TOAST NOTIFICATION SYSTEM ───────────────────────────────────────────────
 function Toast({ toasts, removeToast }) {
@@ -391,19 +392,24 @@ function ProductsSection({ products, onRefresh, addToast }) {
     return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
   }
 
-  // Handle file selection — max 4 total, preview immediately
-  const handleImageSelect = (e) => {
+  // Handle file selection — max 4 total, compressed + resized before preview
+  const handleImageSelect = async (e) => {
     const files = Array.from(e.target.files)
     const remaining = 4 - images.length
+    e.target.value = ''
     if (remaining <= 0) return
     const toAdd = files.slice(0, remaining)
-    const newImages = toAdd.map(file => ({
+
+    setUploadProgress(toAdd.length > 1 ? 'Compressing images...' : 'Compressing image...')
+    const compressedFiles = await compressImages(toAdd)
+    setUploadProgress('')
+
+    const newImages = compressedFiles.map(file => ({
       file,
       url: null,
       preview: URL.createObjectURL(file),
     }))
     setImages(prev => [...prev, ...newImages])
-    e.target.value = ''
   }
 
   const removeImage = (index) => {
